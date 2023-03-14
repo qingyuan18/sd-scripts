@@ -1557,8 +1557,8 @@ def add_training_arguments(parser: argparse.ArgumentParser, support_dreambooth: 
                       help="max token length of text encoder (default for 75, 150 or 225) / text encoderのトークンの最大長（未指定で75、150または225が指定可）")
   parser.add_argument("--mem_eff_attn", action="store_true",
                       help="use memory efficient attention for CrossAttention / CrossAttentionに省メモリ版attentionを使う")
-  parser.add_argument("--xformers", action="store_true",
-                      help="use xformers for CrossAttention / CrossAttentionにxformersを使う")
+  parser.add_argument("--xformers", default=True,
+                      type=bool,help="use xformers for CrossAttention / CrossAttentionにxformersを使う")
   parser.add_argument("--vae", type=str, default=None,
                       help="path to checkpoint of vae to replace / VAEを入れ替える場合、VAEのcheckpointファイルまたはディレクトリ")
 
@@ -1570,8 +1570,8 @@ def add_training_arguments(parser: argparse.ArgumentParser, support_dreambooth: 
   parser.add_argument("--persistent_data_loader_workers", action="store_true",
                       help="persistent DataLoader workers (useful for reduce time gap between epoch, but may use more memory) / DataLoader のワーカーを持続させる (エポック間の時間差を少なくするのに有効だが、より多くのメモリを消費する可能性がある)")
   parser.add_argument("--seed", type=int, default=None, help="random seed for training / 学習時の乱数のseed")
-  parser.add_argument("--gradient_checkpointing", action="store_true",
-                      help="enable gradient checkpointing / grandient checkpointingを有効にする")
+  parser.add_argument("--gradient_checkpointing", default=True,
+                      type=bool,help="enable gradient checkpointing / grandient checkpointingを有効にする")
   parser.add_argument("--gradient_accumulation_steps", type=int, default=1,
                       help="Number of updates steps to accumulate before performing a backward/update pass / 学習時に逆伝播をする前に勾配を合計するステップ数")
   parser.add_argument("--mixed_precision", type=str, default="no",
@@ -1632,8 +1632,8 @@ def add_dataset_arguments(parser: argparse.ArgumentParser, support_dreambooth: b
                       help="show images for debugging (do not train) / デバッグ用に学習データを画面表示する（学習は行わない）")
   parser.add_argument("--resolution", type=str, default=None,
                       help="resolution in training ('size' or 'width,height') / 学習時の画像解像度（'サイズ'指定、または'幅,高さ'指定）")
-  parser.add_argument("--cache_latents", action="store_true",
-                      help="cache latents to reduce memory (augmentations must be disabled) / メモリ削減のためにlatentをcacheする（augmentationは使用不可）")
+  parser.add_argument("--cache_latents",default=True,
+                      type=bool,help="cache latents to reduce memory (augmentations must be disabled) / メモリ削減のためにlatentをcacheする（augmentationは使用不可）")
   parser.add_argument("--enable_bucket", action="store_true",
                       help="enable buckets for multi aspect ratio training / 複数解像度学習のためのbucketを有効にする")
   parser.add_argument("--min_bucket_reso", type=int, default=256, help="minimum resolution for buckets / bucketの最小解像度")
